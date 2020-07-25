@@ -13,7 +13,8 @@ class CalculatorPage extends Component {
         super(props)
         this.state = {
             // Initially, no file is selected 
-            selectedFile: null
+            selectedFile: null,
+            selectedFileBase64: ""
         };
     }
 
@@ -38,15 +39,34 @@ class CalculatorPage extends Component {
             this.state.selectedFile.name
         );
 
+        var localSelectedFileBase64;
+
         // Details of the uploaded file 
-        console.log(this.state.selectedFile);
+        this.getBase64(this.state.selectedFile, (result) => {
+            localSelectedFileBase64 = result;
+
+            this.setState({
+                selectedFileBase64: localSelectedFileBase64
+            }, () => {
+                this.callMathPixAPI();
+            });
+
+        });
+
+
 
         // Request made to the backend api 
         // Send formData object 
         //axios.post("api/uploadfile", formData);
 
+
+    }; 
+
+
+    callMathPixAPI() {
+        console.log(this.state.selectedFileBase64)
         var postObj = {
-            src: "https://i.ytimg.com/vi/8hYSgKH2Mvs/maxresdefault.jpg"
+            src: this.state.selectedFileBase64
         }
 
         var localHeaders = {
@@ -65,9 +85,18 @@ class CalculatorPage extends Component {
             .catch(function (error) {
                 console.log(error);
             });
+    }
 
-
-    }; 
+    getBase64(file, cb) {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            cb(reader.result)
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
 
     // File content to be displayed after 
     // file upload is complete 
@@ -115,10 +144,10 @@ class CalculatorPage extends Component {
                         
                         <div>
                             <h1>
-                                GeeksforGeeks
+                                Math Image Calculator
                             </h1>
                             <h3>
-                                File Upload using React!
+                                Upload your file!
                             </h3>
                             <div>
                                 <input type="file" onChange={this.onFileChange} />
