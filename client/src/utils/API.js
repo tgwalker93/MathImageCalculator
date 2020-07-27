@@ -9,5 +9,8 @@ export default {
     //     return axios.post("/api/user/sendForgotPasswordEmail", userObj);
     // },
 
+    calculateImageLabel(imageData) {
+        return axios.post("/api/calculator/labelImage", imageData);
+     },
 
 };

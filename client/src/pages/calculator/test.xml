@@ -1,0 +1,106 @@
+<queryresult success='true'
+    error='false'
+    numpods='4'
+    datatypes='Solve'
+    timedout=''
+    timedoutpods=''
+    timing='1.192'
+    parsetiming='0.47600000000000003'
+    parsetimedout='false'
+    recalculate=''
+    id='MSP7760239d295a6dhei02500004di4e0i64f4d9fa0'
+    host='https://www4c.wolframalpha.com'
+    server='29'
+    related='https://www4c.wolframalpha.com/api/v1/relatedQueries.jsp?id=MSPa7761239d295a6dhei025000031a81ia36053ef276604077203588371163'
+    version='2.6'>
+ <pod title='Input interpretation'
+     scanner='Identity'
+     id='Input'
+     position='100'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <img src='https://www4c.wolframalpha.com/Calculate/MSP/MSP7762239d295a6dhei02500004397fii830a34e46?MSPStoreType=image/gif&amp;s=29'
+       alt='solve 3 x - 7 = 11'
+       title='solve 3 x - 7 = 11'
+       width='165'
+       height='32'
+       type='Grid'
+       themes='1,2,3,4,5,6,7,8,9,10,11,12'
+       colorinvertable='true' />
+   <plaintext>solve 3 x - 7 = 11</plaintext>
+  </subpod>
+  <expressiontypes count='1'>
+   <expressiontype name='Default' />
+  </expressiontypes>
+ </pod>
+ <pod title='Result'
+     scanner='Solve'
+     id='Result'
+     position='200'
+     error='false'
+     numsubpods='1'
+     primary='true'>
+  <subpod title=''>
+   <img src='https://www4c.wolframalpha.com/Calculate/MSP/MSP7763239d295a6dhei02500006276eh77b541h9e8?MSPStoreType=image/gif&amp;s=29'
+       alt='x = 6'
+       title='x = 6'
+       width='34'
+       height='18'
+       type='Default'
+       themes='1,2,3,4,5,6,7,8,9,10,11,12'
+       colorinvertable='true' />
+   <plaintext>x = 6</plaintext>
+  </subpod>
+  <expressiontypes count='1'>
+   <expressiontype name='Default' />
+  </expressiontypes>
+  <states count='1'>
+   <state name='Step-by-step solution'
+       input='Result__Step-by-step solution'
+       stepbystep='true' />
+  </states>
+ </pod>
+ <pod title='Plot'
+     scanner='Solve'
+     id='RootPlot'
+     position='300'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <img src='https://www4c.wolframalpha.com/Calculate/MSP/MSP7764239d295a6dhei02500001i2f088he1afbd4b?MSPStoreType=image/gif&amp;s=29'
+       alt='Plot'
+       title=''
+       width='393'
+       height='206'
+       type='2DMathPlot_1'
+       themes='1,2,3,4,5,6,7,8,9,10,11,12'
+       colorinvertable='true' />
+   <plaintext></plaintext>
+  </subpod>
+  <expressiontypes count='1'>
+   <expressiontype name='Default' />
+  </expressiontypes>
+ </pod>
+ <pod title='Number line'
+     scanner='Solve'
+     id='NumberLine'
+     position='400'
+     error='false'
+     numsubpods='1'>
+  <subpod title=''>
+   <img src='https://www4c.wolframalpha.com/Calculate/MSP/MSP7765239d295a6dhei025000024cg600f9hf94740?MSPStoreType=image/gif&amp;s=29'
+       alt='Number line'
+       title=''
+       width='330'
+       height='58'
+       type='1DMathPlot_1'
+       themes='1,2,3,4,5,6,7,8,9,10,11,12'
+       colorinvertable='true' />
+   <plaintext></plaintext>
+  </subpod>
+  <expressiontypes count='1'>
+   <expressiontype name='1DMathPlot' />
+  </expressiontypes>
+ </pod>
+</queryresult>
