@@ -103,13 +103,10 @@ class CalculatorPage extends Component {
             searchButtonClicked: true
         })
 
-        var wolframAPIInput = "solve+";
-        var arrOfNumsFromString = this.state.WolframAlphaInputText.match(/([\d\w]+)[\s]*[-=+*/]*[\s]*/g);
-        for (var i = 0; i < arrOfNumsFromString.length; i++) {
-            arrOfNumsFromString[i] = arrOfNumsFromString[i].replace(/=/g, '%3D');
-            arrOfNumsFromString[i] = arrOfNumsFromString[i].replace(/\s/g, '');
-            wolframAPIInput += arrOfNumsFromString[i];
-        }
+        var wolframAPIInput = "solve+" + this.state.WolframAlphaInputText;
+        wolframAPIInput = wolframAPIInput.replace(/=/g, '%3D');
+        wolframAPIInput = wolframAPIInput.replace(/\s/g, '');
+        wolframAPIInput = wolframAPIInput.replace(/[+]/g, '%2b');
         this.callWolframAlphaAPI(wolframAPIInput);
 
     }
@@ -147,6 +144,9 @@ class CalculatorPage extends Component {
             console.log(result);
             if (result.queryresult.$.error === 'false') {
                 var pods = result.queryresult.pod;
+                if(!pods){
+                    return;
+                }
                 for (var i = 0; i < pods.length; i++) {
                     if (pods[i].subpod) {
                         for (var j = 0; j < pods[i].subpod.length; j++) {
@@ -236,14 +236,10 @@ class CalculatorPage extends Component {
 
     calculateResultBeforeCallingWolframAlpha(responseData){
         if (responseData.confidence > .90) {
-            var wolframAPIInput = "solve+";
-            var imageText = responseData.text;
-            var arrOfNumsFromString = imageText.match(/([\d\w]+)[\s]*[-=+*/]*[\s]*/g);
-            for (var i = 0; i < arrOfNumsFromString.length; i++) {
-                arrOfNumsFromString[i] = arrOfNumsFromString[i].replace(/=/g, '%3D');
-                arrOfNumsFromString[i] = arrOfNumsFromString[i].replace(/\s/g, '');
-                wolframAPIInput += arrOfNumsFromString[i];
-            }
+            var wolframAPIInput = "solve+" + responseData.text.substring(2,responseData.text.length-3);
+            wolframAPIInput = wolframAPIInput.replace(/=/g, '%3D');
+            wolframAPIInput = wolframAPIInput.replace(/\s/g, '');
+            wolframAPIInput = wolframAPIInput.replace(/[+]/g, '%2b');
 
             this.callWolframAlphaAPI(wolframAPIInput);
 
@@ -457,7 +453,7 @@ class CalculatorPage extends Component {
                                     <h1 style={{ "textAlign": "center" }}>What would you like to do?</h1>
                                 <div id="buttonGroup">
                                     <Button variant="primary" onClick={() => this.buttonClicked("MathPix")}>
-                                        Upload Image of Expression
+                                        Upload Image of Simple Expression (2 Numbers Only)
                                      </Button>
                                     <Button variant="primary" onClick={() => this.buttonClicked("WolframAlphaImage")}>
                                             Upload Image of Equation
@@ -471,7 +467,7 @@ class CalculatorPage extends Component {
                                 </div>
                                 </div>}
                         </div>
-                        {this.state.result ?                         
+                        {this.state.result || this.state.callWolframAlphaAPIComplete ?                         
                             <Container id="resultsContainer" fluid="true">
                                 <h1>Results</h1>
                                 <hr></hr>
