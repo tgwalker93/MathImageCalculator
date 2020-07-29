@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "math-image-calculator",
   "version": "1.0.0",
-  "description": "",
+  "description": "Use vision AI to detect and solve expressions, equations, and shapes.",
   "main": "server.js",
   "scripts": {
     "server": "node server.js",
