@@ -52,6 +52,10 @@ class CalculatorPage extends Component {
     // On file upload (click the upload button) 
     onFileUpload = (nameOfButtonClicked) => {
 
+        if(!this.state.selectedFile){
+            return;
+        }
+
         // Create an object of formData 
         const formData = new FormData();
 
@@ -328,7 +332,7 @@ class CalculatorPage extends Component {
 
                 return (
                     <div>
-                        <h2>File Details:</h2>
+                        <h3>File Details:</h3>
                         <p>File Name: {this.state.selectedFile.name}</p>
                         <p>File Type: {this.state.selectedFile.type}</p>
                         <p>
@@ -349,7 +353,7 @@ class CalculatorPage extends Component {
             return (
                 <div>
                     <h2>Please Upload your Image</h2>
-                    <input type="file" onChange={this.onFileChange} />
+                    <input id="chooseFileButton" type="file" onChange={this.onFileChange} />
                 </div>
             );
         }
@@ -384,27 +388,28 @@ class CalculatorPage extends Component {
 
     render() {
         return (
-            <Container id="calculatorContainer" fluid="true">
-                <Row id="mainRow">
-                    <Col size="sm-12">
-                        
-                        <div>
-                            <h1>
+            <Container id="mainContainer" fluid="true">
+                <Row id="headerRow">
+                        <Col size="sm-12"> 
+                            <h1 style={{ "textAlign": "center", "fontSize":"100px" }}>
                                 Math Image Calculator
-                            </h1>
+                                </h1>
+
+                            {this.state.choiceMade ?
+                                    <Button id="resetButton" variant="primary" onClick={() => this.reset()}>
+                                        Reset
+                        </Button>
+                        
+                        : ""}
+                        </Col>
+                </Row>
+                <Container id="calculatorContainer" fluid="true">
+                <Row id="mainRow">
+                    <Col size="sm-12"> 
+                        <div>
                             {this.state.choiceMade ?
                                 <div>
-                                    <div>
-                                        <div>
-                                            <button onClick={() => this.reset()}>
-                                                Reset
-                                            </button>
-                                        </div>
-                                        <h3>
-                                            {this.state.result.split("\n").map((i, key) => {
-                                                return <div key={key}>{i}</div>;
-                                            })}
-                                        </h3>
+                                    <div id="choiceMadeGroup">
                                         {this.state.lastAPIChoice === "WolframAlphaInput" ? 
                                         
                                         <div>
@@ -412,9 +417,9 @@ class CalculatorPage extends Component {
                                                     value={this.state.WolframAlphaInputText}
                                                     id="WolframAlphaInputText" onChange={this.handleChange.bind(this)} name="WolframAlphaInputText" />
                                                 {this.state.searchButtonClicked ? <div></div> :
-                                                <button onClick={() => this.callWolframAlphaAPIWithTextInput()}>
-                                                    Search
-                                                </button>
+                                                <Button variant="primary" onClick={() => this.callWolframAlphaAPIWithTextInput()}>
+                                                        Search
+                                                </Button>
                                                  }
                                         </div> 
                                         : 
@@ -422,70 +427,81 @@ class CalculatorPage extends Component {
                                          }
                                         {this.state.lastAPIChoice === "MathPix" && this.state.selectedFile && !this.state.callWolframAlphaAPIComplete && this.state.uploadButtonClicked ? 
                                         <div>
-                                           <button onClick={() => this.callWolframAlphaAPI(this.state.wolframInputFromMathPixReturn)}>
+                                            <Button variant="primary" onClick={() => this.callWolframAlphaAPI(this.state.wolframInputFromMathPixReturn)}>
                                                     Show Details
-                                            </button>
+                                            </Button>
                                         </div> : 
                                         <div>
                                             
                                         </div>}
-                                        {this.state.wolframSubPods.map((subpod, key) => {
-                                            console.log(subpod);
-                                            return (
-                                                <div>
-                                                    <img key={key}
-                                                        src={subpod.src}
-                                                        alt={subpod.alt}
-                                                        title={subpod.title}
-                                                        width={subpod.width}
-                                                        height={subpod.height}
-                                                        type={subpod.type}
-                                                        themes={subpod.themes}
-                                                        colorinvertable={subpod.colorinvertable} />
-                                                    <br />
-                                                    <br />
-                                                </div>
-                                            )
-                                        })}
                                     </div>
-                                    {this.fileData()}
-                                    {console.log(this.state.lastAPIChoice)}
-                                    {this.state.uploadButtonClicked || this.state.lastAPIChoice === "WolframAlphaInput" ? 
-                                    
-                                    <div></div> 
-                                    : 
-                                    <div>
-                                    <button onClick={() => this.onFileUpload(this.state.lastAPIChoice)}>
-                                                Upload
-                                    </button>
-                                    <button onClick={() => this.reset()}>
-                                                Cancel
-                                    </button>
-                                    </div>}
+                                    <div id="uploadFileGroup">
+                                        {this.fileData()}
+                                        {this.state.uploadButtonClicked || this.state.lastAPIChoice === "WolframAlphaInput" ? 
+                                        
+                                        <div></div> 
+                                        : 
+                                        <div>
+                                        <Button variant="primary" onClick={() => this.onFileUpload(this.state.lastAPIChoice)}>
+                                                    Upload
+                                                                            </Button>
+                                        <Button variant="primary" onClick={() => this.reset()}>
+                                        Cancel
+                                        </Button>
+                                        </div>}
+                                    </div>
                                 </div>
 
                                 :
-
                                 <div>
-                                    <h3>What would you like to do?</h3>
-                                    <button onClick={() => this.buttonClicked("MathPix")}>
-                                        Upload Image of Expression (No Equal Sign)
-                                 </button>
-                                    <button onClick={() => this.buttonClicked("GoogleVision")}>
+                                    <h1 style={{ "textAlign": "center" }}>What would you like to do?</h1>
+                                <div id="buttonGroup">
+                                    <Button variant="primary" onClick={() => this.buttonClicked("MathPix")}>
+                                        Upload Image of Expression
+                                     </Button>
+                                    <Button variant="primary" onClick={() => this.buttonClicked("WolframAlphaImage")}>
+                                            Upload Image of Equation
+                                     </Button>
+                                    <Button variant="primary" onClick={() => this.buttonClicked("GoogleVision")}>
                                         Upload Image to Find Shapes or Labels
-                                 </button>
-                                    <button onClick={() => this.buttonClicked("WolframAlphaImage")}>
-                                        Upload Image of Equation (With Equal Sign)
-                                    </button>
-                                    <button onClick={() => this.buttonClicked("WolframAlphaInput")}>
+                                     </Button>
+                                    <Button variant="primary" onClick={() => this.buttonClicked("WolframAlphaInput")}>
                                         Input Text of Equation or Expression
-                                    </button>
+                                     </Button>
+                                </div>
                                 </div>}
                         </div>
-
+                        {this.state.result ?                         
+                            <Container id="resultsContainer" fluid="true">
+                                <h1>Results</h1>
+                                <hr></hr>
+                                <h1>
+                                    {this.state.result.split("\n").map((i, key) => {
+                                        return <div key={key}>{i}</div>;
+                                    })}
+                                </h1>
+                                {this.state.wolframSubPods.map((subpod, key) => {
+                                    return (
+                                        <div>
+                                            <img key={key}
+                                                src={subpod.src}
+                                                alt={subpod.alt}
+                                                title={subpod.title}
+                                                width={subpod.width}
+                                                height={subpod.height}
+                                                type={subpod.type}
+                                                themes={subpod.themes}
+                                                colorinvertable={subpod.colorinvertable} />
+                                            <br />
+                                            <br />
+                                        </div>
+                                    )
+                                })}
+                            </Container>                      
+                        : ""}
                     </Col>
                 </Row>
-
+                </Container>
             </Container>
         );
 

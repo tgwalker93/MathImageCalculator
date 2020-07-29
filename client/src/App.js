@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import Calculator from "./pages/calculator"
 import API from "./utils/API";
 
-
 import "./App.css";
 
 class App extends Component {

@@ -6,35 +6,68 @@ html {
   
 body {
     font-family: 'Gotham';
+        background-image: url("./images/paper.png");
 
   }
-.logoutButton {
-  float:right !important;
-  margin-bottom: 10px !important;
+#calculatorContainer {
+  /* IN CASE I WANT TO CUT THE WIDTH AND CENTER */
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  width:50%; */
+
+  background-color: white;
+  border-style: solid;
+  margin-top: 30px;
+  box-shadow: 10px 5px 20px 2px lightslategrey;
 }
-.help-block {
-    color: red !important;   
-    font-size:18px;
+#resetButton {
+    margin-bottom: 0px;
+    float: right;
 }
 
-.jumbotron {
-  background-color: #d2ecd1 !important;
+.btn {
+    border: 2px solid black;
+    color: #ffffff;
+    background-color: #22B2C5;
+    margin: 20px;
+  margin:20px;
 }
 
-.formFooterLink:hover {
-    cursor:pointer !important;
-    color:blue !important;
+#buttonGroup {
+  text-align: center;
+}
+
+#uploadFileGroup {
+  text-align: center;
+}
+
+#WolframAlphaInputText {
+  width:50%;
+  margin: auto;
+}
+
+#choiceMadeGroup {
+  /* margin-left: 45%; */
+  text-align: center;
+}
+
+#resultsContainer {
+    text-align: center;
+    border: 2px solid black;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 50%;
+}
+label {
+    margin-top: 1%;
+}
+
+hr {
+  border-top: 1px solid black;
 }
   
-#bugModalXButton {
-    line-height: 19px;
-    background-color: #fe0000 !important;
-    margin-top: 1px;
-    margin-right: 2px;
-    position: absolute;
-    top: 0;
-    right: 0;
+#chooseFileButton {
+  margin: auto;
 }
-
-  
 
